@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Live Stock Data</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head><body>
+<div django-app="TaskManager">        
+    <div class="container">
+            <div class="content">
+            <h1>Live Stock Data</h1>
+            <p class="tagline">National Stock Exchange</p>
+            <form action="" method="post">
+            {% csrf_token %} <!-- csrf token for basic security -->
+                <div class="inputContainer">
+                    <input type="text" id="description" class="taskName" placeholder="Which Stock you want to add." name="description" required>
+                    <label for="description">Stock Name</label>
+                </div>
+                <!-- <div class="inputContainer half last">
+                    <i class="fa fa-caret-down selectArrow"></i>
+                    <select id="category" class="taskCategory" name="category_select">
+                    <option class="disabled" value="">Choose a category</option>
+                    {% for category in categories %}
+                        <option class="" value="{{ category.name }}" name="{{ category.name }}">{{ category.name }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="category">Category</label>
+                </div> 
+                <div class="inputContainer half last right">
+                    <input type="date" id="dueDate" class="taskDate" name="date">
+                    <label for="dueDate">Due Date</label>
+                </div> -->
+                <div class="row">
+                    <button class="taskAdd" name="taskAdd" type="submit"><i class="fa fa-plus icon"></i>Add Stock</button>
+                    <button class="taskDelete" name="taskDelete" formnovalidate="" type="submit" onclick="$('input#sublist').click();"><i class="fa fa-trash-o icon"></i>Remove Stock</button>
+                </div>     
+                <ul class="taskList">
+     
+                    <table class="table">
+                        <thead class="thead-inverse">
+                          <tr>
+                            <th>Stock</th>
+                            <th>Current Price</th>
+                            <th>Opening price</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for todo in Stocks %}
+                          <li class="taskItem">
+                            <tr>
+                              <td><input class="form-check-input" type="checkbox" name="checkedbox" value={{todo.id}} id={{todo.id}}/>
+                                <label for="{{ todo.id }}"><span class="complete-">{{ todo.ticker }}</span></label>
+
+                                <small class="text-muted d-block">{{ todo.name }}</small>
+                              </td>
+                              <td class="align-middle">{{todo.price}}</td>
+                              <td class="align-middle">{{todo.open}}</td>
+                              <td></td>
+                            </tr>
+                        </li>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </ul>
+            <!-- {% for todo in Stocks %} <!-- django template lang - for loop 
+                <li class="taskItem">
+                    <input type="checkbox" class="taskCheckbox" name="checkedbox" id="{{ todo.id }}" value="{{ todo.id }}">
+                    <label for="{{ todo.id }}"><span class="complete-">{{ todo.ticker }}</span></label>
+                    <span class="category-{{ todo.price}}">{{ todo.price }}</span>
+                    <span class="category-{{ todo.price}}">{{ todo.price }}</span>
+
+                    <strong class="taskDate"><i class="fa fa-calendar"></i>{{ todo.name }}</strong>
+                </li>
+            {% endfor %}            </ul>  <!-- taskList -->
+            </form>
+ 
+                </div><!-- content --> 
+            </div><!-- container -->
+
+<!-- </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+function fetchdata(){
+    $.ajax({
+     url: '/update',
+     type: 'get',
+     success: function(response){
+      // Perform operation on the return value
+      //alert("Upadting data..");
+     }
+    });
+   }
+   
+   $(document).ready(function(){
+    setInterval(fetchdata,30000);
+   });
+</script>
+-->
+</body>
+</html>
